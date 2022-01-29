@@ -1,17 +1,28 @@
+const req = require('express/lib/request');
 const { cloudinary } = require('../cloudinary');
 const Bug = require('../models/bug');
+const Team = require('../models/team');
+const User = require('../models/user');
 
 module.exports.renderNewForm = async (req, res) => {
   res.render('bugs/new');
 };
 
 module.exports.createBug = async (req, res) => {
+  const team = await Team.findById(req.params.id);
+  const user = await User.findById(req.user._id);
   const bug = new Bug(req.body.bug);
   bug.finder = req.user._id;
   bug.images = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,
   }));
+  bug.team = team;
+  bug.finder = user;
+  await bug.save();
+  team.bugs.push(bug);
+  await team.save();
+  user.bugsFound.push(bug);
   await bug.save();
   req.flash('success', 'Successfully added the new Bug!');
   res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
@@ -19,25 +30,46 @@ module.exports.createBug = async (req, res) => {
 
 module.exports.assign = async () => {
   const bug = await Bug.findById(req.params.bugId);
-  res.redirect('bugs/new');
+  const user = await User.findOne({ username: req.body.username });
+  bug.assignee.push(user);
+  await bug.save();
+  user.assigned.push(bug);
+  await user.save();
+  req.flash('success', 'Successfully assigned the bug');
+  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
 };
 
 module.exports.request = async () => {
   const bug = await Bug.findById(req.params.bugId);
-  res.redirect('bugs/');
+  const user = await User.findOne({ username: req.body.username });
+  bug.requests.push(user);
+  await bug.save();
+  req.flash('success', 'Successfully assigned the bug');
+  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
 };
 module.exports.discussion = async () => {
-  const bug = await Bug.findById(req.params.bugId);
-  res.redirect('bugs/');
+  const bug = await Bug.findById(req.params.bugId).populate(discussions.user);
+  res.render('bugs/discussions/show', bug);
 };
 
 module.exports.postDiscussion = async () => {
   const bug = await Bug.findById(req.params.bugId);
-  res.render('bugs/new');
+  const user = await User.findById(req.user._id);
+  bug.discussions.push({
+    user: user,
+    TimePosted: Date.now(),
+    text: req.body.text,
+  });
+  await bug.save();
+  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}/discussions');
 };
 
 module.exports.showBug = async (req, res) => {
-  const bug = await Bug.findById(req.params.bugId);
+  const bug = await Bug.findById(req.params.bugId)
+    .populate('finder')
+    .populate('assignee')
+    .populate('team')
+    .populate('requests');
   if (!bug) {
     req.flash('error', 'Cannot find the specified Bug');
     res.redirect(`/${req.params.bugId}`);
@@ -53,12 +85,6 @@ module.exports.renderEditForm = async (req, res) => {
   res.render('bugs/edit', { bug });
 };
 module.exports.editBug = async (req, res) => {
-  const { id } = req.params;
-  const geocode = await Geocoder.forwardGeocode({
-    query: req.body.bug.location,
-    limit: 1,
-  }).send();
-  req.body.bug.geometry = geocode.body.features[0].geometry;
   const bug = await Bug.findByIdAndUpdate(req.params.bugId, {
     ...req.body.bug,
   });

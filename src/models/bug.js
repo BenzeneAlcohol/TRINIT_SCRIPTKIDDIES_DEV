@@ -52,6 +52,12 @@ const BugSchema = new Schema({
       text: String,
     },
   ],
+  requests: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 
 module.exports = mongoose.model('Bug', BugSchema);
