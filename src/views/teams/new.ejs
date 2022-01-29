@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+    <h1 class="text-center">New Team</h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/teams" method="POST" novalidate class="needs-validation">
+            <div class='mb-3' >
+                <label class="form-label"  for="name">Name</label>
+                <input class="form-control" type="text" id="name" name="name" required>
+                <div class="valid-feedback">Looks Good</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
+                <div class="valid-feedback">Looks Good</div>
+              </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Team</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -14,7 +14,8 @@ module.exports.index = async (req, res) => {
 
 module.exports.createTeam = async (req, res) => {
   const user = await User.findById(req.user._id);
-  const team = new Team(req.body.team);
+  const team = new Team(req.body);
+  console.log(req.body);
   team.members.push({ user, role: 'Expert' });
   await team.save();
   user.teams.push({ team, role: 'Expert' });
