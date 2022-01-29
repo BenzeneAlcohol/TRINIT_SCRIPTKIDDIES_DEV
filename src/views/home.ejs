@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate')%>
+
+<h2>Hi there! Welcome to Bug Tracking System.</h2>
+
+<% if (!currentUser){ %>
+    <h4 style="margin-top: 4%">As a part of a team, you can do the following: </h4>
+    <ul style="margin-top: 2%; font-size: 18px;">
+        <li>Solve bugs assigned to your team, according to your level in the team.</li>
+        <li>Assign bugs to your teammates, if you are in the higher levels in the team.</li>
+    </ul>
+    <h4 style="margin-top: 4%">A bug has the following characterestics: </h4>
+    <ul style="margin-top: 2%; font-size: 18px;">
+        <li><b>Priority:</b> This can vary from Urgent to low-priority, and will be visible higher in the bugs page.</li>
+        <li><b>Difficulty:</b> Only users of specific level can see the bugs if its difficult is higher.</li>
+        <li><b>Assignee:</b> To whom the bug has been assigned</li>
+    </ul>
+
+    <h4 style="margin-top: 4%">So what are you waiting for? <a href="/register" style="text-decoration: none; color:inherit">Register</a>/<a href="/login" style="text-decoration: none; color:inherit">Login</a> now and start tackling the bugs!</h4>
+<% } else{%>
+    <h3 style="margin-top: 4%">Welcome <%=currentUser.username%>! You can go to your teams <a href="/bugs" style="text-decoration: none; color: rgb(39, 170, 89)">here</a>, and also go to available bugs <a href="/teams" style="text-decoration: none; color: rgb(170, 39, 39)">here</a>. </h3>
+    <div style="display: flex; align-items: center; justify-content: center;">
+    <button type="button" class="btn btn-danger" style="margin-top: 5%; text-align: center; align-items: center; display: flex;"><h3><a href="/bugs/create" style="text-decoration: none; color:inherit">Create a Bug</a></h3></button>
+    </div>
+<% }%>
