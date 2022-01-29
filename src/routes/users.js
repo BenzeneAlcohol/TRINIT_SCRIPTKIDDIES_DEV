@@ -9,6 +9,7 @@ router
   .get(users.renderRegister)
   .post(catchAsync(users.createUser));
 
+router.get('/bugs', catchAsync(users.myBugs));
 router
   .route('/login')
   .get(users.renderLogin)

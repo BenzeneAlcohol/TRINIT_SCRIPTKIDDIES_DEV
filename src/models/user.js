@@ -13,8 +13,11 @@ const UserSchema = new Schema({
   },
   teams: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Team',
+      team: {
+        type: Schema.Types.ObjectId,
+        ref: 'Team',
+      },
+      role: { type: String, enum: ['Beginner', 'Intermediate', 'Expert'] },
     },
   ],
   bugsFound: [

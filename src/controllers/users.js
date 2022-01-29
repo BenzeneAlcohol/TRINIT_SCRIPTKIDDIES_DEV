@@ -1,6 +1,14 @@
 const User = require('../models/user');
 const passport = require('passport');
 
+module.exports.myBugs = async (req, res) => {
+  const user = await User.findById(req.user._id)
+    .populate('bugsFound')
+    .populate('Assigned');
+  const { bugsFound, Assigned } = User;
+  res.render('/index', { bugsFound, Assigned });
+};
+
 module.exports.renderRegister = (req, res) => {
   res.render('users/register');
 };
