@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/BenzeneAlcohol/TRINIT_SCRIPTKIDDIES_DEV#readme",
   "dependencies": {
+    "cloudinary": "^1.28.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.6.0",
     "dotenv": "^14.3.2",
@@ -27,6 +28,8 @@
     "express-session": "^1.17.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.1.8",
+    "multer": "^1.4.4",
+    "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
