@@ -1,36 +1,158 @@
-body {
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1515444744559-7be63e1600de");
-    background-size: cover;
-    background-position: center;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
-}
-.cover-container {
-  max-width: 60vw;
-}
-
-.nav-link {
-    padding: 0.25rem 0;
-    font-weight: 700;
-    color: rgba(255,255,255,0.5);
-    margin-left: 1rem;
-    border-bottom: 0.25rem solid transparent;
-}
-
-.nav-link:hover{
-    color: rgba(255,255,255,0.5);
-    border-bottom-color:rgba(255,255,255,0.5);
-}
-
-.nav-link.active {
+ .homeContainer{
     color: white;
-    border-bottom-color:white;
+ }
+  
+  
+  /* ---- reset ---- */
+  .body-c {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: 'Staatliches', cursive;
+    font-size: 1.5em;
+    color: white;
+  }
+  canvas {
+    display: block;
+  } /* ---- particles.js container ---- */
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #2c2e43;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+  } /* ---- stats.js ---- */
 
-}
 
-.btn-secondary, .btn-secondary:hover{
-    color: #333;
-    text-shadow: none;
-}
+  .button {
+    display: inline-block;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    /* Button is responsive to font size.*/  
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    padding: 0.8em 1.5em;
+    border: none;
+    color: white;
+    transition: 0.2s;
+    text-decoration: none;
+    border: white solid 1px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+      /* Setting opacity so button isn't so bright.  Could use a filter. */  
+     opacity: 0.95;
+  /* Setting right padding for button 
+  to push text away from the icon which is
+  positioned as absolute to enable animations. 
+  No need to declare button max/min width as button
+  is responsive to font size.
+  */  
+     padding-right: 3.5em;
+    cursor: pointer;
+    
+  }
+  .button:before,
+  .button:after {
+    position: absolute;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    font-size: inherit;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 2.8em;
+    transition: 0.2s;
+    transform-origin: 50% 60%;
+    
+    /*  Uncomment below to set icon background color.  Set as black 
+  in example with RGB opacity to  make it stand out a bit more.   */
+    
+    /*  background: rgba(0,0,0,0.10); */
+   
+  }
+  
+  
+  /* Arrow Button Markup  */
+  
+  .arrow {
+    background: #2F3A8F;
+  }
+  .arrow:hover {
+    background: #FE7E6D;
+  }
+  .arrow:active,
+  .arrow:focus {
+    background: #FE7E6D;
+  }
+  /* Entity Icon   */
+  .arrow:after {
+    content: "\2794";
+  }
+  /* Set Arrow Icon Bounce Animation   */
+  .arrow:hover:after {
+    -webkit-animation: bounceright 0.3s alternate ease infinite;
+    animation: bounceright 0.3s alternate ease infinite;
+  }
+  
+  /* Phone Button Markup  */
+  
+  .phone {
+    background: #333;
+  }
+  .phone:hover {
+    background: #111;
+  }
+  .phone:active,
+  .phone:focus {
+    background: #3c3b6e;
+  }
+  
+  /* Entity Icon   */
+  .phone:after {
+    content: "\260E";
+  }
+  /* Set Phone Icon Wiggle Animation   */
+  .phone:hover:after {
+    -webkit-animation: wiggle 0.05s alternate ease infinite;
+    animation: wiggle 0.05s alternate ease infinite;
+  }
+  
+  /* Animations  */
+  
+  @-webkit-keyframes bounceright {
+    from {
+      -webkit-transform: translateX(0);
+    }
+    to {
+      -webkit-transform: translateX(3px);
+    }
+  }
+  @-webkit-keyframes wiggle {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(30deg);
+    }
+  }
+  @keyframes bounceright {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(3px);
+    }
+  }
+  @keyframes wiggle {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(30deg);
+    }
+  }
