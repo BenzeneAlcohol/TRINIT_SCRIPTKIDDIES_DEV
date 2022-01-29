@@ -1,5 +1,7 @@
 <% layout('layouts/boilerplate')%>
 
+<div class="homeContainer">
+
 <h2>Hi there! Welcome to Bug Tracking System.</h2>
 
 <% if (!currentUser){ %>
@@ -17,8 +19,28 @@
 
     <h4 style="margin-top: 4%">So what are you waiting for? <a href="/register" style="text-decoration: none; color:inherit">Register</a>/<a href="/login" style="text-decoration: none; color:inherit">Login</a> now and start tackling the bugs!</h4>
 <% } else{%>
-    <h3 style="margin-top: 4%">Welcome <%=currentUser.username%>! You can go to your teams <a href="/bugs" style="text-decoration: none; color: rgb(39, 170, 89)">here</a>, and also go to available bugs <a href="/teams" style="text-decoration: none; color: rgb(170, 39, 39)">here</a>. </h3>
-    <div style="display: flex; align-items: center; justify-content: center;">
-    <button type="button" class="btn btn-danger" style="margin-top: 5%; text-align: center; align-items: center; display: flex;"><h3><a href="/bugs/create" style="text-decoration: none; color:inherit">Create a Bug</a></h3></button>
+    <h3 style="margin-top: 4%"><b><%=currentUser.username%></b>, Please start your journey here </h3>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 6%;">
+        <a href="#" title="Catchy Title" role="button" class="button arrow" style="text-decoration: none; color: inherit;">My Team</a>
+
+
+<button class="button phone"><a href="/bug" style="text-decoration: none; color: inherit;">Report a Bug!</a></button>
     </div>
 <% }%>
+
+<div id="particles-js"></div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+  integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+  crossorigin="anonymous"
+></script>
+
+<script src="/javascripts/particlejs.js"></script>
