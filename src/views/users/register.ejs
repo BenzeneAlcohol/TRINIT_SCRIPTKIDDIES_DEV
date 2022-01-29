@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate')%>
+
+<div
+  class="container d-flex justify-content-center align-items-center mt-5 mb-5"
+>
+  <div class="card shadow text-white bg-dark mb-3 col-md-4">
+    <div class="card-header">Register</div>
+        <div class="card-body">
+          <form
+            action="/register"
+            method="POST"
+            novalidate
+            class="needs-validation"
+          >
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input
+                class="form-control"
+                type="text"
+                id="username"
+                name="username"
+                required
+              />
+              <div class="valid-feedback">Looks Good</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="email">Email</label>
+              <input
+                class="form-control"
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+              <div class="valid-feedback">Looks Good</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="username">password</label>
+              <input
+                class="form-control"
+                type="password"
+                id="password"
+                name="password"
+                required
+              />
+              <div class="valid-feedback">Looks Good</div>
+            </div>
+            <button class="btn btn-success">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+      url('https://i.imgur.com/U7S5ZIm.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+</style>
