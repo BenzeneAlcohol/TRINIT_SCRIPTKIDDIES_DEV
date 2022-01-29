@@ -16,7 +16,7 @@ const BugSchema = new Schema({
     type: String,
   },
   images: [ImageSchema],
-  level: { type: String, enum: ['Beginner', 'Intermediate', 'Expert'] },
+  priority: { type: String, enum: ['Critical', 'Important', 'Nominal'] },
   status: { type: String, enum: ['open', 'assigned', 'closed'] },
   //Bug Finder
   finder: [
@@ -25,7 +25,7 @@ const BugSchema = new Schema({
       ref: 'User',
     },
   ],
-  assigned: [
+  assigne: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
