@@ -81,8 +81,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.render('home');
 });
-app.use('/bugs', bugRoutes);
 app.use('/teams', teamRoutes);
+app.use('/teams/:id/bugs', bugRoutes);
 app.use('/', userRoutes);
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404));
