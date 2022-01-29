@@ -25,7 +25,7 @@ const BugSchema = new Schema({
       ref: 'User',
     },
   ],
-  assigne: [
+  assignee: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',

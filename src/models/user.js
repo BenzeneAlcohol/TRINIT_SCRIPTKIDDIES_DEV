@@ -7,6 +7,15 @@ const UserSchema = new Schema ({
         type:String,
         require: [true , "Email cannot be Empty"],
         unique: true
+    },
+    name:{
+        type: String,
+        required: [true, 'Name cannot be Empty']
+    },
+    username: {
+        type: String,
+        required: [true, 'Username cannot be Empty'],
+        unique: true
     }
 })
 
