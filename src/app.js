@@ -25,7 +25,7 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const bugRoutes = require('./routes/bugs');
 const teamRoutes = require('./routes/teams');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/tri-nit';
+const dbUrl =  'mongodb://localhost:27017/tri-nit';
 const secretCode = process.env.SECRET;
 
 mongoose.connect(dbUrl).then(console.log('mongo success'));
@@ -94,6 +94,6 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render('error', { err });
 });
 
-app.listen(80, () => {
-  console.log('Server running on port 80');
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
