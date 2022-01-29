@@ -6,7 +6,7 @@ module.exports.myBugs = async (req, res) => {
     .populate('bugsFound')
     .populate('Assigned');
   const { bugsFound, Assigned } = User;
-  res.render('/index', { bugsFound, Assigned });
+  res.render('users/index', { bugsFound, Assigned });
 };
 
 module.exports.renderRegister = (req, res) => {

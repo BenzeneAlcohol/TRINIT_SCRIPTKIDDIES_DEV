@@ -107,8 +107,8 @@ module.exports.editBug = async (req, res) => {
   res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
 };
 module.exports.deleteBug = async (req, res) => {
-  const { id } = req.params;
-  const bug = await Bug.findById(id);
+  const { bugId } = req.params;
+  const bug = await Bug.findById(bugId);
   if (!bug.author.equals(req.user._id)) {
     req.flash('error', 'you do no have permission to do that!');
     return res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
