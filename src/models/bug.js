@@ -25,7 +25,7 @@ const BugSchema = new Schema({
       ref: 'User',
     },
   ],
-  assigne: [
+  assignee: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -35,6 +35,23 @@ const BugSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Team',
   },
+  deadline: {
+    type: Date,
+    default: Date.now(),
+  },
+  discussions: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      TimePosted: {
+        type: Date,
+        default: Date.now(),
+      },
+      text: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model('Bug', BugSchema);
