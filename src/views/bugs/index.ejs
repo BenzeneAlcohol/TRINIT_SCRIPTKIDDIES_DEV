@@ -1,0 +1,50 @@
+<% layout('/layouts/boilerplate')%>
+
+<h1 style="margin-top: 4%; margin-bottom: 4%;">Bugs Assigned to <%=currentUser.username%></h1>
+
+<h1 style="margin-top: 4%; margin-bottom: 4%;">All Bugs</h1>
+<ul>
+     <% for (let bug of bugs) {%>
+        <div class="card mb-3">
+            <div class="row">
+            <div class="col-md-4">
+                <% if(bug.images.length > 0) { %>  
+                    <img src="<%= campground.images[0].url%>" alt="" srcset="" class="img-fluid">
+                    <% } else { %>
+                    <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" srcset="" class="img-fluid">
+                    <% } %>  
+            </div>
+            <div class="col-md-8">
+                <div class="card-body"><h5 class="card-title"><%= bug.title %></h5>
+                    <p class="card-text">
+                        <small class="text-muted">Assigned to: <b><%= bug.team.name %></b></small>
+                    </p>
+                    <p class="card-text"><%=bug.description %></p>
+                    <a href="/bug/<%=bug._id%>" class="btn btn-dark" style="margin-top: 4%; margin-bottom: 4%;">Fix the Bug!</a>
+                    <div>
+                    <% if(bug.priority=="Important") { %>
+                    <button type="button" class="btn btn-outline-primary" style="margin-right: 2%;">Primary</button>
+                    <%}>
+                    <% if(bug.priority=="Critical") { %>
+                    <button type="button" class="btn btn-outline-danger" style="margin-right: 2%;">Danger</button>
+                    <%}>
+                    <% if(bug.priority=="Nominal") { %>
+                    <button type="button" class="btn btn-outline-warning" style="margin-right: 2%;">Warning</button>
+                    <%}>
+                    <button type="button" class="btn btn-outline-info" style="margin-right: 2%;"><%= bug.status %>></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Assignees
+                        </button>
+                        <ul class="dropdown-menu">
+                        <% for(assign in assignees) {%>
+                        <li><a class="dropdown-item"><%=assign.username%></a></li>
+                        <%}>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%} %>
+    </ul>
