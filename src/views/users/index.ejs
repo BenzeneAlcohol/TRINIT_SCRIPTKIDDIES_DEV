@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate')%>
+
+<h2>Reported Bugs</h2>
+<hr />
+<div class="container d-flex flex-wrap">
+  <% for (let i in bugsFound) {%>
+  <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
+    <div class="card-header">bug #<%= i %></div>
+    <div class="card-body text-dark">
+      <h5 class="card-title">
+        <a href="/teams/<%= bugsFound[i].team %>/bugs/<%= bugsFound[i]._id %>"
+          ><%= bugsFound[i].title %></a
+        >
+      </h5>
+      <p class="card-text"><%= bugsFound[i].description %></p>
+    </div>
+  </div>
+  <%} %>
+</div>
+<h2>Assigned Bugs</h2>
+<hr />
+<div class="container d-flex flex-wrap">
+  <% for (let i in Assigned) {%>
+  <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
+    <div class="card-header">bug #<%= i %></div>
+    <div class="card-body text-dark">
+      <h5 class="card-title">
+        <a href="/teams/<%= Assigned[i].team %>/bugs/<%= Assigned[i]._id %>"
+          ><%= Assigned[i].title %></a
+        >
+      </h5>
+      <p class="card-text"><%= bugsFound[i].description %></p>
+    </div>
+  </div>
+  <%} %>
+</div>

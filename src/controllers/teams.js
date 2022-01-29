@@ -1,3 +1,4 @@
+const bug = require('../models/bug');
 const Team = require('../models/team');
 const User = require('../models/user');
 
@@ -42,7 +43,24 @@ module.exports.showTeam = async (req, res) => {
     req.flash('error', 'Cannot find the specified team');
     res.redirect(`/teams`);
   }
-  res.render('teams/show', { team });
+
+  const role = teams.members.filter((x) => x.user._id == req.user._id);
+  if (role.length > 0 && role === 'Expert') {
+    let bugs = team.bugs;
+    res.render('teams/show', { team, bugs });
+  } else if (role.length > 0 && role === 'Intermediate') {
+    let bugsImportant = await bug.find({ team, priority: 'Important' });
+    let bugsNominal = await bug.find({ team, priority: 'Nominal' });
+    res.render('teams/show', {
+      team,
+      bugs: [...bugsImportant, ...bugsNominal],
+    });
+  } else if (role.length > 0 && role === 'Nominal') {
+    let bugs = await bug.find({ team, priority: 'Nominal' });
+    res.render('teams/show', { team, bugs });
+  } else {
+    res.render('teams/show', { team, bugs: [] });
+  }
 };
 
 module.exports.renderEditForm = async (req, res) => {
