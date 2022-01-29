@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const { cloudinary } = require('../cloudinary');
 const Bug = require('../models/bug');
 const Team = require('../models/team');
@@ -10,6 +9,10 @@ module.exports.renderNewForm = async (req, res) => {
 
 module.exports.createBug = async (req, res) => {
   const team = await Team.findById(req.params.id);
+  if (!team) {
+    req.flash('error', 'Cannot find the specified Team');
+    res.redirect(`/teams`);
+  }
   const user = await User.findById(req.user._id);
   const bug = new Bug(req.body.bug);
   bug.finder = req.user._id;

@@ -7,6 +7,7 @@ const TeamSchema = new Schema({
   name: {
     type: String,
   },
+  description: String,
   bugs: [
     {
       type: Schema.Types.ObjectId,
@@ -19,7 +20,7 @@ const TeamSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
-      role: ['Beginner', 'Intermediate', 'Expert'],
+      role: { type: String, enum: ['Beginner', 'Intermediate', 'Expert'] },
     },
   ],
 });
