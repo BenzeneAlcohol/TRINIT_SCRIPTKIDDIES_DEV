@@ -71,12 +71,12 @@ module.exports.isReporter = async function (req, res, next) {
 };
 
 module.exports.isBugExpert = async function (req, res, next) {
-  const bug = await Bug.findById(req.params.bugId).populate('team');
-  const teams = await Team.findById(bug.team._id).populate('members.user');
-  const member = teams.members.filter(
+  const bugc = await Bug.findById(req.params.bugId).populate('team');
+  const teamsc = await Team.findById(bugc.team._id).populate('members.user');
+  const memberc = teamsc.members.filter(
     (x) => x.user.username === req.user.username,
   );
-  if (member.length > 0 && member[0].role === 'Expert') next();
+  if (memberc.length > 0 && memberc[0].role === 'Expert') next();
   else {
     req.flash('error', "You Don't have that permission.2");
     res.redirect(`/teams`);

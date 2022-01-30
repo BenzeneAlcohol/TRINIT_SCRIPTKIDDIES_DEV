@@ -34,13 +34,21 @@ module.exports.reportBug = async (req, res) => {
 module.exports.assign = async (req, res) => {
   const bug = await Bug.findById(req.params.bugId);
   const user = await User.findOne({ username: req.body.username });
-  bug.assignee.push(user);
-  if (bug.status == 'open') bug.status = 'assigned';
-  await bug.save();
-  user.assigned.push(bug);
-  await user.save();
-  req.flash('success', 'Successfully assigned the bug');
-  res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
+  if (!bug) {
+    req.flash('error', 'Bug Not Found');
+    res.redirect(`/teams`);
+  } else if (!user) {
+    req.flash('error', 'User Not Found');
+    res.redirect(`/teams`);
+  } else {
+    bug.assignee.push(user);
+    if (bug.status == 'open') bug.status = 'assigned';
+    await bug.save();
+    user.assigned.push(bug);
+    await user.save();
+    req.flash('success', 'Successfully assigned the bug');
+    res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
+  }
 };
 
 module.exports.request = async (req, res) => {
@@ -91,13 +99,14 @@ module.exports.renderEditForm = async (req, res) => {
     res.redirect('bugs');
   }
   res.render('bugs/edit', { bugId });
-  
 };
 
 module.exports.editBug = async (req, res) => {
   const { id } = req.params;
-  const bug = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.bug });
-  const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+  const bug = await Campground.findByIdAndUpdate(req.params.id, {
+    ...req.body.bug,
+  });
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bug.images.push(...imgs);
   await bug.save();
   console.log(req.body.deleteImages ? 1 : 0);
@@ -105,10 +114,13 @@ module.exports.editBug = async (req, res) => {
     for (let filename of req.body.deleteImages) {
       await cloudinary.uploader.destroy(filename);
     }
-    await bug.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } }, { new: true });
+    await bug.updateOne(
+      { $pull: { images: { filename: { $in: req.body.deleteImages } } } },
+      { new: true },
+    );
     console.log(bug);
   }
-  req.flash('success', 'Successfully updated Campground!')
+  req.flash('success', 'Successfully updated Campground!');
   res.redirect(`/campgrounds/${bug._id}`);
 };
 

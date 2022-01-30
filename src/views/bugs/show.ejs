@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate')%>
-
+  <a href="/teams/<%= bug.team._id %>" class="btn btn-dark"><- Go back</a> <hr>
   <div class="card mb-3">
     <div class="carousel-inner ">
 
@@ -26,9 +26,9 @@
 
   </div>
   <div class="card-body">
-    <h5 class="card-title">
-      <%= bug.title %>
-    </h5>
+    <h3 class="card-title">
+      <%= bug.title.toUpperCase() %>
+    </h3>
     <p class="card-text">
       <%= bug.description %>
     </p>
@@ -36,7 +36,7 @@
       <small class="text-muted">Submitted: <%= bug.createdAt %></small>
     </p>
   </div>
-
+  <hr>
   <div class="row">
     <div class="col-6  mb-3">
       <div class="card mb-3">
@@ -67,6 +67,10 @@
               <% } %>
           </ul>
         </div>
+      </div>
+    </div>
+    <div class="col-6  mb-3">
+      <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">Requests:</h5>
           <hr>
@@ -78,47 +82,42 @@
               <% } %>
           </ul>
         </div>
-      </div>
-    </div>
-    <div class="col-6  mb-3">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Assign</h5>
+        <hr>
+        <div class="container">
+          <h4>
+            Assign</h4>
           <form action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/assign" method="POST">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="username" name="username" aria-label="username"
-                aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn  text-white bg-success" type="button">Assign</button>
-              </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">username</label>
+              <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="username" aria-describedby="emailHelp">
             </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Change Status</h5>
+        <hr>
+        <div class="container">
+          <h4>
+            Change Status</h4>
           <form action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST">
-            <div class="input-group mb-3">
+            <div class="mb-3">
               <select class="form-select" id="Priority" name="status" aria-label="Default select example">
                 <option value="open" selected>open</option>
                 <option value="assigned">assigned</option>
                 <option value="closed">closed</option>
               </select>
-              <div class="input-group-append">
-                <button class="btn  text-white bg-primary " type="button">Change</button>
-              </div>
             </div>
+            <button type="submit" class="btn btn-primary">Change</button>
           </form>
         </div>
         <hr>
-        <% if(currentUser && bug.finder.equals(currentUser._id)){%>
-          <div class="card-body">
+        <div class="card-body">
+          <a class="card-link btn btn-dark" href="/teams/<%= bug.team._id %>/bugs/<%= bug._id %>/discussions">View Discussions</a>
             <a class="card-link btn btn-warning" href="/teams/<%= bug.team._id %>/bugs/<%= bug._id %>/edit">Edit</a>
             <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>?_method=DELETE" method="POST">
               <button class="btn btn-danger">Delete</button></form>
             <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST"><button
                 class="btn btn-primary">Request</button></form>
           </div>
-          <%}%>
       </div>
     </div>
   </div>
