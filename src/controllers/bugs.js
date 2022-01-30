@@ -4,10 +4,10 @@ const Team = require('../models/team');
 const User = require('../models/user');
 
 module.exports.renderNewForm = async (req, res) => {
-  res.render('bugs/new');
+  res.render('bugs/new', { teamId: req.params.id });
 };
 
-module.exports.createBug = async (req, res) => {
+module.exports.reportBug = async (req, res) => {
   const team = await Team.findById(req.params.id);
   if (!team) {
     req.flash('error', 'Cannot find the specified Team');
@@ -15,7 +15,7 @@ module.exports.createBug = async (req, res) => {
   }
   const user = await User.findById(req.user._id);
   const bug = new Bug(req.body.bug);
-  bug.finder = req.user._id;
+  bug.finder = req.user;
   bug.images = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,
@@ -26,7 +26,7 @@ module.exports.createBug = async (req, res) => {
   team.bugs.push(bug);
   await team.save();
   user.bugsFound.push(bug);
-  await bug.save();
+  await user.save();
   req.flash('success', 'Successfully added the new Bug!');
   res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
 };

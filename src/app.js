@@ -25,7 +25,7 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const bugRoutes = require('./routes/bugs');
 const teamRoutes = require('./routes/teams');
-const dbUrl =  'mongodb://localhost:27017/tri-nit';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/tri-nit';
 const secretCode = process.env.SECRET;
 
 mongoose.connect(dbUrl).then(console.log('mongo success'));

@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
 const bugs = require('../controllers/bugs');
 const { isLoggedIn } = require('../middleware');
@@ -10,7 +10,7 @@ const upload = multer({ storage });
 
 router
   .route('/')
-  .post(isLoggedIn, upload.array('image'), catchAsync(bugs.newbug));
+  .post(isLoggedIn, upload.array('image'), catchAsync(bugs.reportBug));
 
 router.get('/new', isLoggedIn, catchAsync(bugs.renderNewForm));
 

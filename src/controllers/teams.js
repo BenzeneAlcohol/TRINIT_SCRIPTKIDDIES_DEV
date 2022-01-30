@@ -7,10 +7,9 @@ module.exports.renderNewForm = async (req, res) => {
 };
 
 module.exports.index = async (req, res) => {
-  const user = await User.findById(req.user._id);
-  const myteams = user.teams;
+  const myteams = await Team.find({ id: { $in: req.user.teams.Team } });
   const teams = await Team.find({});
-  res.render('/teams/index', { myteams, teams });
+  res.render('teams/index', { myteams, teams });
 };
 
 module.exports.createTeam = async (req, res) => {
@@ -45,7 +44,7 @@ module.exports.showTeam = async (req, res) => {
     res.redirect(`/teams`);
   }
 
-  const role = teams.members.filter((x) => x.user._id == req.user._id);
+  const role = team.members.filter((x) => x.user._id == req.user._id);
   if (role.length > 0 && role === 'Expert') {
     let bugs = team.bugs;
     res.render('teams/show', { team, bugs });
@@ -73,14 +72,14 @@ module.exports.renderEditForm = async (req, res) => {
   res.render('teams/edit', { team });
 };
 module.exports.editTeam = async (req, res) => {
-  await Team.findByIdAndUpdate(req.params.id, {
+  let team = await Team.findByIdAndUpdate(req.params.id, {
     ...req.body.team,
   });
   req.flash('success', 'Successfully updated Team!');
-  res.redirect(`/teams/${req.params.bugId}`);
+  res.redirect(`/teams/${req.params.id}`);
 };
 module.exports.deleteTeam = async (req, res) => {
-  const { bugId } = req.params;
+  const { id } = req.params;
   const team = await Team.findById(id);
   if (team.bugs) {
     req.flash(

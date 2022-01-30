@@ -5,14 +5,19 @@
 <div class="container d-flex flex-wrap">
   <% for (let i in bugsFound) {%>
   <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
-    <div class="card-header">bug #<%= i %></div>
+    <div class="card-header">
+      <a
+        style="text-decoration: none; color: black; font-weight: bold"
+        href="/teams/<%= bugsFound[i].team %>/bugs/<%= bugsFound[i]._id %>"
+        ><%= bugsFound[i].title %></a
+      >
+    </div>
     <div class="card-body text-dark">
-      <h5 class="card-title">
-        <a href="/teams/<%= bugsFound[i].team %>/bugs/<%= bugsFound[i]._id %>"
-          ><%= bugsFound[i].title %></a
-        >
-      </h5>
-      <p class="card-text"><%= bugsFound[i].description %></p>
+      <p class="card-text" style="min-width: 250px;">
+        <%= (bugsFound[i].description.length > 100) ?
+        bugsFound[i].description.substr(0, 99) + '&hellip;' :
+        bugsFound[i].description %>
+      </p>
     </div>
   </div>
   <%} %>
@@ -22,14 +27,20 @@
 <div class="container d-flex flex-wrap">
   <% for (let i in Assigned) {%>
   <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
-    <div class="card-header">bug #<%= i %></div>
+    <div class="card-header">
+      <a
+      style="text-decoration: none; color: black; font-weight: bold"
+      href="/teams/<%= Assigned[i].team %>/bugs/<%= Assigned[i]._id %>"
+      ><%= Assigned[i].title %>
+      </a>
+    </div>
     <div class="card-body text-dark">
-      <h5 class="card-title">
-        <a href="/teams/<%= Assigned[i].team %>/bugs/<%= Assigned[i]._id %>"
-          ><%= Assigned[i].title %></a
-        >
       </h5>
-      <p class="card-text"><%= bugsFound[i].description %></p>
+      <p class="card-text" style="min-width: 250px;">
+        <%= (Assigned[i].description.length > 100) ?
+        Assigned[i].description.substr(0, 99) + '&hellip;' :
+        Assigned[i].description %>
+      </p>
     </div>
   </div>
   <%} %>
