@@ -1,69 +1,35 @@
 <% layout('layouts/boilerplate')%>
 
 <div class="homeContainer">
-  <h2>Hi there! Welcome to Bug Tracking System.</h2>
 
-  <% if (!currentUser){ %>
-  <h4 style="margin-top: 4%">As a part of a team, you can do the following:</h4>
-  <ul style="margin-top: 2%; font-size: 18px">
-    <li>
-      Solve bugs assigned to your team, according to your level in the team.
-    </li>
-    <li>
-      Assign bugs to your teammates, if you are in the higher levels in the
-      team.
-    </li>
-  </ul>
-  <h4 style="margin-top: 4%">A bug has the following characterestics:</h4>
-  <ul style="margin-top: 2%; font-size: 18px">
-    <li>
-      <b>Priority:</b> This can vary from Urgent to low-priority, and will be
-      visible higher in the bugs page.
-    </li>
-    <li>
-      <b>Difficulty:</b> Only users of specific level can see the bugs if its
-      difficult is higher.
-    </li>
-    <li><b>Assignee:</b> To whom the bug has been assigned</li>
-  </ul>
+<h2>Hi there! Welcome to Bug Tracking System.</h2>
 
-  <h4 style="margin-top: 4%">
-    So what are you waiting for?
-    <a href="/register" style="text-decoration: none; color: inherit"
-      >Register</a
-    >/<a href="/login" style="text-decoration: none; color: inherit">Login</a>
-    now and start tackling the bugs!
-  </h4>
-  <% } else{%>
-  <h3 style="margin-top: 4%">
-    <b><%=currentUser.username%></b>, Please start your journey here
-  </h3>
-  <div
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 6%;
-    "
-  >
-    <a
-      href="teams"
-      title="Catchy Title"
-      role="button"
-      class="button arrow"
-      style="text-decoration: none; color: inherit"
-      >All Teams</a
-    >
+<% if (!currentUser){ %>
+    <h4 style="margin-top: 4%">As a part of a team, you can do the following: </h4>
+    <ul style="margin-top: 2%; font-size: 18px;">
+        <li>Solve bugs assigned to your team, according to your level in the team.</li>
+        <li>Assign bugs to your teammates, if you are in the higher levels in the team.</li>
+    </ul>
+    <h4 style="margin-top: 4%">A bug has the following characterestics: </h4>
+    <ul style="margin-top: 2%; font-size: 18px;">
+        <li><b>Priority:</b> This can vary from Urgent to low-priority, and will be visible higher in the bugs page.</li>
+        <li><b>Difficulty:</b> Only users of specific level can see the bugs if its difficult is higher.</li>
+        <li><b>Assignee:</b> To whom the bug has been assigned</li>
+    </ul>
 
-    <button class="button phone">
-      <a href="/bugs" style="text-decoration: none; color: inherit"
-        >Your Bugs</a
-      >
-    </button>
-  </div>
-  <% }%>
+    <h4 style="margin-top: 4%">So what are you waiting for? <a href="/register" style="text-decoration: none; color:inherit">Register</a>/<a href="/login" style="text-decoration: none; color:inherit">Login</a> now and start tackling the bugs!</h4>
+<% } else{%>
+    <h3 style="margin-top: 4%"><b><%=currentUser.username%></b>, Please start your journey here </h3>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 6%;">
+        <a href="#" title="Catchy Title" role="button" class="button arrow" style="text-decoration: none; color: inherit;">My Team</a>
 
-  <div id="particles-js"></div>
+
+<button class="button phone"><a href="/bug" style="text-decoration: none; color: inherit;">Report a Bug!</a></button>
+    </div>
+<% }%>
+
+<div id="particles-js"></div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script
@@ -78,20 +44,3 @@
 ></script>
 
 <script src="/javascripts/particlejs.js"></script>
-
-<style>
-  #particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    background-color: #2c2e43;
-    background-image: url('https://i.imgur.com/zIPD4QC.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    min-height: 100%;
-  } /* ---- stats.js ---- */
-</style>
