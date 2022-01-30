@@ -26,7 +26,7 @@ cd TRINIT_SCRIPTKIDDIES_DEV
 npm install
 ```
 
-Once all the dependencies are installed, cd into the source folder and run app.js
+Once all the dependencies are installed, cd into the source folder and create a .env file from the sample env file given in this repo. [Create env file inside the source folder] Then, run node app.js
 
 If you are running mongoDB locally, make sure to run "mongod" command in your terminal before you proceed.
 
