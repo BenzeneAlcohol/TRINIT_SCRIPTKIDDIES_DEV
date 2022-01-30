@@ -4,7 +4,7 @@
 <hr />
 <h6><%= team.description %></h6>
 <hr />
-<h4>Members</h4>
+<h4>Members</h4> 
 <% for(let user of team.members) { %>
 <span class="badge badge-pill <%=(user.role==="Expert") ?
  'bg-danger':(user.role==="Intermediate") ?  
@@ -12,13 +12,17 @@
   ><%= user.user.username %></span
 >
 <% } %>
+
 <br>
 <a href="#"
     class="link-primary text-decoration-none"
     data-toggle="modal" data-target="#exampleModalCenter">
     Add a new Member
     </a>
-      
+    <br>
+    Indications: <span class="badge badge-pill bg-dark">Beginneer</span>
+    <span class="badge badge-pill bg-info">Intermediate</span>
+    <span class="badge badge-pill bg-danger">Expert</span>
       <!-- Modal -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -94,7 +98,7 @@
   </div>
   <%} %>
 </div>
-<a href="<%= current_url %>bugs/new"
+<a href="/teams/<%= team._id %>/bugs/new"
     class="link-primary text-decoration-none">
     Report a New Bug
     </a>
