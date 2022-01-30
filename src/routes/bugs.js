@@ -21,7 +21,7 @@ router
   .delete(catchAsync(bugs.deleteBug));
 
 router
-  .route(':bugId/discussions/')
+  .route('/:bugId/discussions')
   .get(isLoggedIn, catchAsync(bugs.discussion))
   .post(bugs.postDiscussion);
 

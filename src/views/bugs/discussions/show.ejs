@@ -1,0 +1,44 @@
+<% layout('/layouts/boilerplate')%>
+
+<div class="card text-white bg-dark mb-3">
+  <div class="card-header"><h5 class="card-title"><%= bug.title %></h5></div>
+  <div class="card-body">
+    <p class="card-text"><%= bug.description %></p>
+    <p>Current Status: <%= bug.status %></p>
+    <hr />
+    <p>Reported by: <%= bug.finder.username %></p>
+  </div>
+</div>
+
+<% for(let x of bug.discussions) { %>
+<div class="card text-white bg-dark mb-3">
+  <div class="card-header">
+    <h5 class="card-title"><%= x.user.username %></h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= x.text %></p>
+    <hr />
+    <p>Posted On: <%= x.TimePosted %></p>
+  </div>
+</div>
+
+<% } %>
+
+<div class="card text-white bg-dark mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Disuss</h5>
+    <hr>
+    <form action="<%= current_url %>" method="POST" class='validated-form' novalidate>
+        <div class="form-group">
+            <textarea class="form-control" id="description" rows="3" name="text" placeholder="Your Text goes here" required></textarea>
+            <div class="valid-feedback">Looks Good</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary">
+        Submit
+      </button>
+</div>
+</form>
+  </div>
+</div>

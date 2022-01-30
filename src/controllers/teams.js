@@ -24,7 +24,7 @@ module.exports.createTeam = async (req, res) => {
   res.redirect(`/teams/${team._id}`);
 };
 
-module.exports.addMember = async () => {
+module.exports.addMember = async (req, res) => {
   const team = await Team.findById(req.params.id);
   const user = await User.findOne({ username: req.body.username });
   team.members.push({ user, role: req.body.role });

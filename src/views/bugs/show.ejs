@@ -39,8 +39,11 @@
         <div class="card mb-3" >
             <ul class="list-group list-group-flush">
               <li class="list-group-item ">priority: <%= bug.priority %></li>
-              <li class="list-group-item ">Reported by: <span style="font-weight: bold;"><%= bug.finder.username %></span></li> 
+              <li class="list-group-item ">Reported by:
+                 <span style="font-weight: bold;"><%= bug.finder.username %></span></li> 
               <li class="list-group-item ">Deadline: <%= bug.deadline %></li> 
+              <li class="list-group-item ">Current Status: 
+                <span style="font-weight: bold;"><%= bug.status %></span></li>
             </ul>
             <div class="card-body">
                 <h5 class="card-title">Assigned to:</h5>
