@@ -1,0 +1,110 @@
+<% layout('/layouts/boilerplate')%>
+
+<div class="card mb-3">
+    <div class="carousel-inner ">
+        
+        <% if (bug.images.length < 1 ) {%>
+            <div class="carousel-item  active bg-dark">
+                <img src="https://wallpaper.dog/large/206978.jpg"style="max-height: 500px;" class="d-block mx-auto" alt="...">
+              </div>
+            <%} %>
+        <% bug.images.forEach((img, i)=> {%>
+        <div class="carousel-item  <%= i===0 ? 'active':''%>">
+          <img src="<%= img.url %>" class="d-block w-100" alt="...">
+        </div>
+        <%}) %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      
+    </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= bug.title %></h5>
+    <p class="card-text">
+        <%= bug.description %>
+    </p>
+    <p class="card-text">
+      <small class="text-muted">Submitted: <%= bug.createdAt %></small>
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-6  mb-3">
+        <div class="card mb-3" >
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item ">priority: <%= bug.priority %></li>
+              <li class="list-group-item ">Reported by: <span style="font-weight: bold;"><%= bug.finder.username %></span></li> 
+              <li class="list-group-item ">Deadline: <%= bug.deadline %></li> 
+            </ul>
+            <div class="card-body">
+                <h5 class="card-title">Assigned to:</h5>
+                <hr>
+                <ul class="list-group list-group-flush">
+                    <% for(let user of bug.assignee) { %>
+                    <li class="list-group-item "><%= user.username %></li>
+                    <% } %>
+                  </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Requests:</h5>
+                <hr>
+                <ul class="list-group list-group-flush">
+                    <% for(let user of bug.requests) { %>
+                    <li class="list-group-item "><%= user.username %></li>
+                    <% } %>
+                  </ul>
+              </div>
+          </div>
+        </div>
+        <div class="col-6  mb-3">
+            <div class="card mb-3" >
+                <div class="card-body">
+                    <h5 class="card-title">Assign</h5>
+                    <form action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="username" name="username" aria-label="username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn  text-white bg-success" type="button" >Assign</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Change Status</h5>
+                    <form action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST">
+                    <div class="input-group mb-3">
+                        <select
+          class="form-select"
+          id="Priority"
+          name="status"
+          aria-label="Default select example"
+        >
+          <option value="open" selected>open</option>
+          <option value="assigned">assigned</option>
+          <option value="closed">closed</option>
+        </select>
+        <div class="input-group-append">
+                          <button class="btn  text-white bg-primary " type="button" >Change</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <hr>
+                <% if(currentUser && bug.finder.equals(currentUser._id)){%>
+                <div class="card-body">
+                    <a class="card-link btn btn-warning" href="/teams/<%= bug.team._id %>/bugs/<%= bug._id %>/edit">edit</a>
+                    <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>?_method=DELETE" method="POST"><button class="btn btn-danger">Delete</button></form>
+                    <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST"><button class="btn btn-primary">Request</button></form>
+                
+                </div>
+                <%}%>
+              </div>
+            </div>
+    </div>
+</div>

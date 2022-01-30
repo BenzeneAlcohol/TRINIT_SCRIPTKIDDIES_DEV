@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+  <h1 class="text-center">Edit Team</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/teams/<%= team._id%>?_method=PUT"
+      method="POST"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input
+          class="form-control"
+          type="text"
+          id="name"
+          name="name"
+          value="<%= team.name %>"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          rows="5"
+          name="description"
+          required
+        >
+<%= team.description %></textarea
+        >
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-success">Edit</button>
+      </div>
+    </form>
+  </div>
+</div>

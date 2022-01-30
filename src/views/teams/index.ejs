@@ -1,0 +1,46 @@
+<% layout('layouts/boilerplate')%>
+
+<h2>My Teams</h2>
+<hr />
+<div class="container d-flex flex-wrap">
+  <% for (let i in myteams) {%>
+  <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
+    <div class="card-header">
+      <a
+        style="text-decoration: none; color: black; font-weight: bold"
+        href="/teams/<%= myteams[i]._id %>/"
+        ><%= myteams[i].name %></a
+      >
+    </div>
+    <div class="card-body text-dark">
+      <p class="card-text">
+        <%= (myteams[i].description.length > 100) ?
+        myteams[i].description.substr(0, 99) + '&hellip;' :
+        myteams[i].description %>
+      </p>
+    </div>
+  </div>
+  <%} %>
+</div>
+<h2>All Teams</h2>
+<hr />
+<div class="container d-flex flex-wrap">
+  <% for (let i in teams) {%>
+  <div class="card border-dark mb-3 mx-2" style="max-width: 18rem">
+    <div class="card-header">
+        <a
+        style="text-decoration: none; color: black; font-weight: bold"
+        href="/teams/<%= myteams[i]._id %>/"
+        ><%= myteams[i].name %></a
+      ></div>
+    <div class="card-body text-dark">
+      </h5>
+      <p class="card-text">
+        <%= (myteams[i].description.length > 100) ?
+        myteams[i].description.substr(0, 99) + '&hellip;' :
+        myteams[i].description %>
+      </p>
+    </div>
+  </div>
+  <%} %>
+</div>

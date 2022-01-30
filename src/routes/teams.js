@@ -17,6 +17,8 @@ router
   .put(isLoggedIn, catchAsync(teams.editTeam))
   .delete(catchAsync(teams.deleteTeam));
 
+router.route('/:id/edit').get(isLoggedIn, catchAsync(teams.renderEditForm));
+
 router.route('/:id/members').post(isLoggedIn, catchAsync(teams.addMember));
 
 module.exports = router;
