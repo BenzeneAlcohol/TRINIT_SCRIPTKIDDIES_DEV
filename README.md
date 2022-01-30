@@ -7,6 +7,10 @@ Our bug tracking system is comprised of 2 major parts: The bugs themselves, and 
 
 Basically, if a bug has to be reported, the user should either be in a team, or a new team will be created for the bug to be handled.
 
+Link to the submission document: https://drive.google.com/file/d/13Mzb55Ra_2TLZcetGbk7zuuhUZFDaFDD/view?usp=sharing
+
+Link to the video: https://drive.google.com/file/d/10_04LLhXIA6Cpp-A9vOIkqgzRWhjDVGO/view?usp=sharing
+
 
 ## Installation
 
@@ -32,18 +36,15 @@ cd src
 nodemon app.js
 ```
 
+## Tech Stack used
 
-## Screenshots
+Backend: Node JS + MongoDB
 
-![image](https://user-images.githubusercontent.com/75667393/151686473-80548461-9976-406b-94b8-c0de90a0f3dc.png)
+Frontend: EJS
 
-![image](https://user-images.githubusercontent.com/75667393/151686483-1cadf1c9-48e1-499f-99c9-d6f07806fba5.png)
+Cloudinary, for storing images
 
-![image](https://user-images.githubusercontent.com/75667393/151686487-9ccd86d2-ad68-41aa-a748-9dab6a90f25d.png)
 
-![image](https://user-images.githubusercontent.com/75667393/151686497-9bf3ae72-154a-44d6-9bc0-2ead0b4380b1.png)
-
-![image](https://user-images.githubusercontent.com/75667393/151686499-4582638d-0de2-4539-b365-20883378a296.png)
 
 # Explanation
 
@@ -95,7 +96,17 @@ No, only the corrosponding levels of the users can see the bugs. As mentioned in
 
 An Expert can assign bugs to the below two levels, and can add team members as one of the three roles as well. By default, if someone creates a team he is an expert **in that team**.
 
+## Screenshots
 
+![image](https://user-images.githubusercontent.com/75667393/151686473-80548461-9976-406b-94b8-c0de90a0f3dc.png)
+
+![image](https://user-images.githubusercontent.com/75667393/151686483-1cadf1c9-48e1-499f-99c9-d6f07806fba5.png)
+
+![image](https://user-images.githubusercontent.com/75667393/151686487-9ccd86d2-ad68-41aa-a748-9dab6a90f25d.png)
+
+![image](https://user-images.githubusercontent.com/75667393/151686497-9bf3ae72-154a-44d6-9bc0-2ead0b4380b1.png)
+
+![image](https://user-images.githubusercontent.com/75667393/151686499-4582638d-0de2-4539-b365-20883378a296.png)
 
 
 
