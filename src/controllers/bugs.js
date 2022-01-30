@@ -35,6 +35,7 @@ module.exports.assign = async (req, res) => {
   const bug = await Bug.findById(req.params.bugId);
   const user = await User.findOne({ username: req.body.username });
   bug.assignee.push(user);
+  if (bug.status == 'open') bug.status = 'assigned';
   await bug.save();
   user.assigned.push(bug);
   await user.save();
@@ -121,4 +122,12 @@ module.exports.deleteBug = async (req, res) => {
   await Bug.findByIdAndDelete(id);
   req.flash('success', 'Successfully deleted Bug. :(');
   res.redirect(`/teams/${req.params.bugId}`);
+};
+
+module.exports.changeStatus = async (req, res) => {
+  const bug = await Bug.findById(req.params.bugId);
+  bug.status = req.body.status;
+  await bug.save();
+  req.flash('success', 'Successfully changed the status of the bug');
+  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
 };
