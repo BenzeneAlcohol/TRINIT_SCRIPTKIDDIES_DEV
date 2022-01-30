@@ -12,9 +12,8 @@ module.exports.isLoggedIn = function (req, res, next) {
 };
 
 module.exports.isExpert = async function (req, res, next) {
-  const team = await Team.findById(req.params.id).populate('members.user');
-
-  const members = team.members.filter(
+  const teamc = await Team.findById(req.params.id).populate('members.user');
+  const members = teamc.members.filter(
     (x) => x.user.username == req.user.username,
   );
   if (members.length > 0 && members[0].role === 'Expert') next();
@@ -29,7 +28,7 @@ module.exports.accessCheckBug = async function (req, res, next) {
     .populate('finder')
     .populate('team')
     .populate('assignee');
-  if (req.user.username === bug.finder._id) next();
+  if (req.user.username === bug.finder.username) next();
   else if (bug.assignee.some((x) => x.username === req.user.username)) next();
   else {
     const teams = await Team.findById(bug.team._id).populate('members.user');
@@ -57,7 +56,7 @@ module.exports.isReporter = async function (req, res, next) {
   const bug = await Bug.findById(req.params.bugId)
     .populate('finder')
     .populate('team');
-  if (req.user.username === bug.finder._id) next();
+  if (req.user.username === bug.finder.username) next();
   else {
     const teams = await Team.findById(bug.team._id).populate('members.user');
     const member = teams.members.filter(
@@ -71,7 +70,7 @@ module.exports.isReporter = async function (req, res, next) {
   }
 };
 
-module.exports.isExpert = async function (req, res, next) {
+module.exports.isBugExpert = async function (req, res, next) {
   const bug = await Bug.findById(req.params.bugId).populate('team');
   const teams = await Team.findById(bug.team._id).populate('members.user');
   const member = teams.members.filter(

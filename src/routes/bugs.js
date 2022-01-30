@@ -6,7 +6,7 @@ const {
   isLoggedIn,
   accessCheckBug,
   isReporter,
-  isExpert,
+  isBugExpert,
 } = require('../middleware');
 
 const multer = require('multer');
@@ -28,7 +28,7 @@ router
     upload.array('image'),
     catchAsync(bugs.editBug),
   )
-  .delete(isLoggedIn, catchAsync(isExpert), catchAsync(bugs.deleteBug));
+  .delete(isLoggedIn, catchAsync(isBugExpert), catchAsync(bugs.deleteBug));
 
 router
   .route('/:bugId/discussions')
@@ -41,7 +41,7 @@ router
 
 router
   .route('/:bugId/assign')
-  .post(isLoggedIn, catchAsync(isExpert), catchAsync(bugs.assign));
+  .post(isLoggedIn, catchAsync(isBugExpert), catchAsync(bugs.assign));
 
 router
   .route('/:bugsId/status')
