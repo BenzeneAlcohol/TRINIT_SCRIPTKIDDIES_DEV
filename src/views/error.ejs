@@ -1,11 +1,14 @@
 <% layout('/layouts/boilerplate')%>
 <div class="row">
-  <div class="col-8 offset-2">
-    <div class="alert alert-danger" role="alert">
-      <h4 class="alert-heading"><%= err.message%></h4>
-      <% if(process.env.NODE_ENV !=="production"){ %>
-      <p><%= err.stack %></p>
-      <% } %>
-    </div>
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading" style="font-size: 0.8rem"><%= err.message%></h4>
   </div>
+</div>
+<div class="container d-flex w-100">
+  <img
+    class="mx-auto"
+    style="text-align: center"
+    src="https://i.pinimg.com/originals/d5/b7/9a/d5b79a08ce86c7983cd99c06aec53e23.png"
+    alt=""
+  />
 </div>
