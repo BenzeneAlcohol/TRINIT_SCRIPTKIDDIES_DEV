@@ -7,7 +7,8 @@ module.exports.renderNewForm = async (req, res) => {
 };
 
 module.exports.index = async (req, res) => {
-  const myteams = await Team.find({ id: { $in: req.user.teams.Team } });
+  const user = await User.findById(req.user._id).populate('teams.team');
+  const myteams = user.teams.map((x) => x.team);
   const teams = await Team.find({});
   res.render('teams/index', { myteams, teams });
 };
