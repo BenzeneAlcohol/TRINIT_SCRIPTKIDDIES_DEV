@@ -13,7 +13,7 @@ router.get('/new', isLoggedIn, catchAsync(teams.renderNewForm));
 
 router
   .route('/:id')
-  .get(catchAsync(teams.showTeam))
+  .get(isLoggedIn, catchAsync(teams.showTeam))
   .put(isLoggedIn, catchAsync(isExpert), catchAsync(teams.editTeam))
   .delete(isLoggedIn, catchAsync(isExpert), catchAsync(teams.deleteTeam));
 

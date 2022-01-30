@@ -31,7 +31,7 @@ module.exports.reportBug = async (req, res) => {
   res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
 };
 
-module.exports.assign = async () => {
+module.exports.assign = async (req, res) => {
   const bug = await Bug.findById(req.params.bugId);
   const user = await User.findOne({ username: req.body.username });
   bug.assignee.push(user);
@@ -42,7 +42,7 @@ module.exports.assign = async () => {
   res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
 };
 
-module.exports.request = async () => {
+module.exports.request = async (req, res) => {
   const bug = await Bug.findById(req.params.bugId);
   const user = await User.findOne({ username: req.body.username });
   bug.requests.push(user);
@@ -50,13 +50,15 @@ module.exports.request = async () => {
   req.flash('success', 'Successfully assigned the bug');
   res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
 };
-module.exports.discussion = async () => {
-  const bug = await Bug.findById(req.params.bugId).populate(discussions.user);
-  res.render('bugs/discussions/show', bug);
+module.exports.discussion = async (req, res) => {
+  const bug = await Bug.findById(req.params.bugId)
+    .populate('discussions.user')
+    .populate('finder');
+  res.render('bugs/discussions/show', { bug });
 };
 
-module.exports.postDiscussion = async () => {
-  const bug = await Bug.findById(req.params.bugId);
+module.exports.postDiscussion = async (req, res) => {
+  const bug = await Bug.findById(req.params.bugId).populate('team');
   const user = await User.findById(req.user._id);
   bug.discussions.push({
     user: user,
@@ -64,7 +66,7 @@ module.exports.postDiscussion = async () => {
     text: req.body.text,
   });
   await bug.save();
-  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}/discussions');
+  res.redirect(`/teams/${bug.team._id}/bugs/${bug._id}/discussions`);
 };
 
 module.exports.showBug = async (req, res) => {
