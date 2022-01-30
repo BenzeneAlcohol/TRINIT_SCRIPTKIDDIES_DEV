@@ -99,12 +99,12 @@
                     </form>
                   </div>
                   <hr>
-                <% if(currentUser && bug.finder.equals(currentUser._id)){%>
+                <% if(currentUser){%>
                 <div class="card-body">
                     <a class="card-link btn btn-warning" href="/teams/<%= bug.team._id %>/bugs/<%= bug._id %>/edit">edit</a>
                     <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>?_method=DELETE" method="POST"><button class="btn btn-danger">Delete</button></form>
                     <form class=" d-inline" action="/teams/<%= bug.team._id %>/bugs/<%= bug._id%>/request" method="POST"><button class="btn btn-primary">Request</button></form>
-                
+                    <a class="card-link btn btn-success" href="/teams/<%= bug.team._id %>/bugs/<%= bug._id %>/discussions">View Discussions</a>
                 </div>
                 <%}%>
               </div>
