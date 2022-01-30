@@ -40,7 +40,7 @@ module.exports.assign = async (req, res) => {
   user.assigned.push(bug);
   await user.save();
   req.flash('success', 'Successfully assigned the bug');
-  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
+  res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
 };
 
 module.exports.request = async (req, res) => {
@@ -48,9 +48,10 @@ module.exports.request = async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   bug.requests.push(user);
   await bug.save();
-  req.flash('success', 'Successfully assigned the bug');
-  res.redirect('/teams/${req.params.bugId}/bugs/${bug._id}');
+  req.flash('success', 'Successfully requested the bug');
+  res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
 };
+
 module.exports.discussion = async (req, res) => {
   const bug = await Bug.findById(req.params.bugId)
     .populate('discussions.user')
@@ -82,33 +83,35 @@ module.exports.showBug = async (req, res) => {
   }
   res.render('bugs/show', { bug });
 };
+
 module.exports.renderEditForm = async (req, res) => {
-  const bug = await Bug.findById(req.params.bugId);
-  if (!bug) {
+  const bugId = await Bug.findById(req.params.bugId);
+  if (!bugId) {
     req.flash('error', 'Cannot find the specified Bug');
-    res.redirect(`/${req.params.bugId}`);
+    res.redirect('bugs');
   }
-  res.render('bugs/edit', { bug });
+  res.render('bugs/edit', { bugId });
+  
 };
+
 module.exports.editBug = async (req, res) => {
-  const bug = await Bug.findByIdAndUpdate(req.params.bugId, {
-    ...req.body.bug,
-  });
-  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  const { id } = req.params;
+  const bug = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.bug });
+  const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
   bug.images.push(...imgs);
   await bug.save();
+  console.log(req.body.deleteImages ? 1 : 0);
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
       await cloudinary.uploader.destroy(filename);
     }
-    await bug.updateOne(
-      { $pull: { images: { filename: { $in: req.body.deleteImages } } } },
-      { new: true },
-    );
+    await bug.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } }, { new: true });
+    console.log(bug);
   }
-  req.flash('success', 'Successfully updated Bug!');
-  res.redirect(`/teams/${req.params.bugId}/bugs/${bug._id}`);
+  req.flash('success', 'Successfully updated Campground!')
+  res.redirect(`/campgrounds/${bug._id}`);
 };
+
 module.exports.deleteBug = async (req, res) => {
   const { bugId } = req.params;
   const bug = await Bug.findById(bugId);
