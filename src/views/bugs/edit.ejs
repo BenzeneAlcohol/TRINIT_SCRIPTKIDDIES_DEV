@@ -1,0 +1,74 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+  <h1 class="text-center">Edit Bug</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/bugs/<%= bugId %>?_method=PUT"
+      method="POST"
+      novalidate 
+      class="needs-validation" 
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="bug[title]"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Priority</label>
+        <select
+          class="form-select"
+          id="Priority"
+          name="bug[priority]"
+          aria-label="Default select example"
+        >
+          <option value="Nominal" selected>Nominal</option>
+          <option value="Important">Important</option>
+          <option value="Critical">Critical</option>
+        </select>
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <label for="images" class="form-label custom-file-label"
+          >Upload Images</label
+        >
+        <input
+          class="form-control custom-file"
+          type="file"
+          id="images"
+          name="image"
+          multiple
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          rows="3"
+          name="bug[description]"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="title">DeadLine</label>
+        <input type="date" id="birthday" name="bug[deadline]" />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-success">Report</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
